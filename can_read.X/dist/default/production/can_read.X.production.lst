@@ -1,0 +1,1882 @@
+
+
+Microchip MPLAB XC8 Assembler V2.36 build 20220127204148 
+                                                                                               Thu Oct 20 16:19:45 2022
+
+Microchip MPLAB XC8 C Compiler v2.36 (Free license) build 20220127204148 Og1 
+     1                           	processor	18F458
+     2                           	fnconf	rparam,??,?,0
+     3                           	pagewidth 120
+     4                           	opt	flic
+     5                           	psect	smallconst,global,reloc=2,class=SMALLCONST,delta=1,noexec
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     8                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     9                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    10                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    12                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text4,global,reloc=2,class=CODE,delta=1
+    14                           	psect	text5,global,reloc=2,class=CODE,delta=1
+    15                           	psect	text6,global,reloc=2,class=CODE,delta=1
+    16                           	psect	text7,global,reloc=2,class=CODE,delta=1
+    17                           	psect	intcode,global,reloc=2,class=CODE,delta=1
+    18                           	psect	text9,global,reloc=2,class=CODE,delta=1
+    19                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    20                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    21                           	psect	temp,global,ovrld,common,class=COMRAM,space=1,delta=1
+    22                           	psect	idloc,global,abs,ovrld,class=IDLOC,space=5,delta=1,noexec
+    23                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=1,noexec
+    24  0000                     
+    25                           ; Version 2.40
+    26                           ; Generated 17/11/2021 GMT
+    27                           ; 
+    28                           ; Copyright © 2021, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    29                           ; All rights reserved.
+    30                           ; 
+    31                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    32                           ; 
+    33                           ; Redistribution and use in source and binary forms, with or without modification, are
+    34                           ; permitted provided that the following conditions are met:
+    35                           ; 
+    36                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    37                           ;        conditions and the following disclaimer.
+    38                           ; 
+    39                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    40                           ;        of conditions and the following disclaimer in the documentation and/or other
+    41                           ;        materials provided with the distribution. Publication is not required when
+    42                           ;        this file is used in an embedded application.
+    43                           ; 
+    44                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    45                           ;        software without specific prior written permission.
+    46                           ; 
+    47                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    48                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    49                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    50                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    51                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    52                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    53                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    54                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    55                           ; 
+    56                           ; 
+    57                           ; Code-generator required, PIC18F458 Definitions
+    58                           ; 
+    59                           ; SFR Addresses
+    60  0000                     _PIR3bits	set	4004
+    61  0000                     _RXB0D7	set	3949
+    62  0000                     _RXB0D6	set	3948
+    63  0000                     _RXB0D5	set	3947
+    64  0000                     _RXB0D4	set	3946
+    65  0000                     _RXB0D3	set	3945
+    66  0000                     _RXB0D2	set	3944
+    67  0000                     _RXB0D1	set	3943
+    68  0000                     _RXB0D0	set	3942
+    69  0000                     _IPR3bits	set	4005
+    70  0000                     _PEIE	set	32662
+    71  0000                     _RXM0SIDH	set	3864
+    72  0000                     _RXM0SIDL	set	3865
+    73  0000                     _RXF0SIDL	set	3841
+    74  0000                     _RXF0SIDH	set	3840
+    75  0000                     _TXB0CON	set	3904
+    76  0000                     _TXB0SIDH	set	3905
+    77  0000                     _CANSTAT	set	3950
+    78  0000                     _CANCON	set	3951
+    79  0000                     _PORTBbits	set	3969
+    80  0000                     _TRISBbits	set	3987
+    81  0000                     _CIOCON	set	3955
+    82  0000                     _BRGCON3	set	3954
+    83  0000                     _BRGCON2	set	3953
+    84  0000                     _BRGCON1	set	3952
+    85  0000                     _GIE	set	32663
+    86  0000                     _PIE3bits	set	4003
+    87  0000                     _TXB0DLC	set	3909
+    88  0000                     _TXB0SIDL	set	3906
+    89  0000                     _RXB0CONbits	set	3936
+    90  0000                     _RXB0SIDH	set	3937
+    91  0000                     _RXB0SIDL	set	3938
+    92  0000                     _RXB0DLC	set	3941
+    93  0000                     _TXB0D7	set	3917
+    94  0000                     _TXB0D6	set	3916
+    95  0000                     _TXB0D5	set	3915
+    96  0000                     _TXB0D4	set	3914
+    97  0000                     _TXB0D3	set	3913
+    98  0000                     _TXB0D2	set	3912
+    99  0000                     _TXB0D1	set	3911
+   100  0000                     _TXB0D0	set	3910
+   101                           
+   102                           	psect	smallconst
+   103  000600                     __psmallconst:
+   104                           	callstack 0
+   105  000600  00                 	db	0
+   106  000601                     STR_1:
+   107  000601  52                 	db	82	;'R'
+   108  000602  65                 	db	101	;'e'
+   109  000603  63                 	db	99	;'c'
+   110  000604  65                 	db	101	;'e'
+   111  000605  69                 	db	105	;'i'
+   112  000606  76                 	db	118	;'v'
+   113  000607  65                 	db	101	;'e'
+   114  000608  64                 	db	100	;'d'
+   115  000609  00                 	db	0
+   116  00060A  00                 	db	0	; dummy byte at the end
+   117  0000                     
+   118                           ; #config settings
+   119                           
+   120                           	psect	cinit
+   121  0009D2                     __pcinit:
+   122                           	callstack 0
+   123  0009D2                     start_initialization:
+   124                           	callstack 0
+   125  0009D2                     __initialization:
+   126                           	callstack 0
+   127                           
+   128                           ; Clear objects allocated to COMRAM (13 bytes)
+   129  0009D2  EE00  F001         	lfsr	0,__pbssCOMRAM
+   130  0009D6  0E0D               	movlw	13
+   131  0009D8                     clear_0:
+   132  0009D8  6AEE               	clrf	postinc0,c
+   133  0009DA  06E8               	decf	wreg,f,c
+   134  0009DC  E1FD               	bnz	clear_0
+   135  0009DE                     end_of_initialization:
+   136                           	callstack 0
+   137  0009DE                     __end_of__initialization:
+   138                           	callstack 0
+   139  0009DE  9019               	bcf	int$flags,0,c	;clear compiler interrupt flag (level 1)
+   140  0009E0  9219               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
+   141  0009E2  0E00               	movlw	low (__Lsmallconst shr (0+16))
+   142  0009E4  6EF8               	movwf	tblptru,c
+   143  0009E6  0E06               	movlw	high __Lsmallconst
+   144  0009E8  6EF7               	movwf	tblptrh,c
+   145  0009EA  0100               	movlb	0
+   146  0009EC  EF31  F004         	goto	_main	;jump to C main() function
+   147                           
+   148                           	psect	bssCOMRAM
+   149  000001                     __pbssCOMRAM:
+   150                           	callstack 0
+   151  000001                     _CAN_RX_Buff:
+   152                           	callstack 0
+   153  000001                     	ds	8
+   154  000009                     _CAN_RX_DLC:
+   155                           	callstack 0
+   156  000009                     	ds	2
+   157  00000B                     _CAN_RX_ID:
+   158                           	callstack 0
+   159  00000B                     	ds	2
+   160  00000D                     _CAN_RX_FLAG:
+   161                           	callstack 0
+   162  00000D                     	ds	1
+   163                           
+   164                           	psect	cstackCOMRAM
+   165  00000E                     __pcstackCOMRAM:
+   166                           	callstack 0
+   167  00000E                     ??i2_led_blink:
+   168                           
+   169                           ; 1 bytes @ 0x0
+   170  00000E                     	ds	2
+   171  000010                     ??_CAN_Read:
+   172  000010                     ??_led_blink:
+   173  000010                     CAN_Send_msg@DLC:
+   174                           	callstack 0
+   175  000010                     CAN_set_baud@baud:
+   176                           	callstack 0
+   177                           
+   178                           ; 2 bytes @ 0x2
+   179  000010                     	ds	1
+   180  000011                     CAN_Send_msg@ID:
+   181                           	callstack 0
+   182                           
+   183                           ; 2 bytes @ 0x3
+   184  000011                     	ds	1
+   185  000012                     
+   186                           ; 1 bytes @ 0x4
+   187  000012                     	ds	1
+   188  000013                     CAN_Send_msg@data:
+   189                           	callstack 0
+   190                           
+   191                           ; 2 bytes @ 0x5
+   192  000013                     	ds	2
+   193  000015                     ??_CAN_Send_msg:
+   194                           
+   195                           ; 1 bytes @ 0x7
+   196  000015                     	ds	3
+   197  000018                     CAN_Send_msg@type:
+   198                           	callstack 0
+   199                           
+   200                           ; 1 bytes @ 0xA
+   201  000018                     	ds	1
+   202  000019                     
+   203                           ; 1 bytes @ 0xB
+   204 ;;
+   205 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   206 ;;
+   207 ;; *************** function _main *****************
+   208 ;; Defined at:
+   209 ;;		line 6 in file "main.c"
+   210 ;; Parameters:    Size  Location     Type
+   211 ;;		None
+   212 ;; Auto vars:     Size  Location     Type
+   213 ;;		None
+   214 ;; Return value:  Size  Location     Type
+   215 ;;                  1    wreg      void 
+   216 ;; Registers used:
+   217 ;;		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+   218 ;; Tracked objects:
+   219 ;;		On entry : 0/0
+   220 ;;		On exit  : 0/0
+   221 ;;		Unchanged: 0/0
+   222 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   223 ;;      Params:         0       0       0       0       0       0       0
+   224 ;;      Locals:         0       0       0       0       0       0       0
+   225 ;;      Temps:          0       0       0       0       0       0       0
+   226 ;;      Totals:         0       0       0       0       0       0       0
+   227 ;;Total ram usage:        0 bytes
+   228 ;; Hardware stack levels required when called: 3
+   229 ;; This function calls:
+   230 ;;		_CAN_Init
+   231 ;;		_CAN_RX_Config
+   232 ;;		_CAN_Read
+   233 ;;		_CAN_Send_msg
+   234 ;;		_CAN_set_baud
+   235 ;;		_System_Init
+   236 ;;		_led_blink
+   237 ;; This function is called by:
+   238 ;;		Startup code after reset
+   239 ;; This function uses a non-reentrant model
+   240 ;;
+   241                           
+   242                           	psect	text0
+   243  000862                     __ptext0:
+   244                           	callstack 0
+   245  000862                     _main:
+   246                           	callstack 28
+   247  000862  FFFF               	dw	65535	; assembler added errata NOP
+   248                           
+   249                           ;main.c: 10:    TRISBbits.RB0 = 0;
+   250  000864  9093               	bcf	147,0,c	;volatile
+   251                           
+   252                           ;main.c: 11:    PORTBbits.RB0 = 0;
+   253  000866  9081               	bcf	129,0,c	;volatile
+   254  000868                     
+   255                           ;main.c: 15:   System_Init();
+   256  000868  ECF8  F004         	call	_System_Init	;wreg free
+   257                           
+   258                           ;main.c: 16:    CAN_Init();
+   259  00086C  ECFD  F004         	call	_CAN_Init	;wreg free
+   260  000870                     
+   261                           ;main.c: 17:    CAN_set_baud(250);
+   262  000870  0E00               	movlw	0
+   263  000872  6E11               	movwf	(CAN_set_baud@baud+1)^0,c
+   264  000874  0EFA               	movlw	250
+   265  000876  6E10               	movwf	CAN_set_baud@baud^0,c
+   266  000878  ECC5  F003         	call	_CAN_set_baud	;wreg free
+   267  00087C                     
+   268                           ;main.c: 19:    CAN_RX_Config();
+   269  00087C  ECB4  F004         	call	_CAN_RX_Config	;wreg free
+   270  000880                     l1039:
+   271  000880  FFFF               	dw	65535	; assembler added errata NOP
+   272                           
+   273                           ;main.c: 26:    {;main.c: 28:       if(CAN_RX_FLAG)
+   274  000882  500D               	movf	_CAN_RX_FLAG^0,w,c
+   275  000884  B4D8               	btfsc	status,2,c
+   276  000886  EF47  F004         	goto	u231
+   277  00088A  EF4A  F004         	goto	u230
+   278  00088E                     u231:
+   279  00088E  FFFF               	dw	65535	; assembler added errata NOP
+   280  000890  EF40  F004         	goto	l1039
+   281  000894                     u230:
+   282  000894  FFFF               	dw	65535	; assembler added errata NOP
+   283  000896                     
+   284                           ;main.c: 29:        {;main.c: 30:            CAN_RX_FLAG = 0;
+   285  000896  0E00               	movlw	0
+   286  000898  6E0D               	movwf	_CAN_RX_FLAG^0,c
+   287  00089A                     
+   288                           ;main.c: 31:            CAN_Read();
+   289  00089A  EC7B  F004         	call	_CAN_Read	;wreg free
+   290  00089E                     
+   291                           ;main.c: 32:            led_blink();
+   292  00089E  ECC7  F004         	call	_led_blink	;wreg free
+   293  0008A2                     
+   294                           ;main.c: 33:            if (CAN_RX_ID== 0x100)
+   295  0008A2  040C               	decf	(_CAN_RX_ID+1)^0,w,c
+   296  0008A4  100B               	iorwf	_CAN_RX_ID^0,w,c
+   297  0008A6  A4D8               	btfss	status,2,c
+   298  0008A8  EF58  F004         	goto	u241
+   299  0008AC  EF5B  F004         	goto	u240
+   300  0008B0                     u241:
+   301  0008B0  FFFF               	dw	65535	; assembler added errata NOP
+   302  0008B2  EF40  F004         	goto	l1039
+   303  0008B6                     u240:
+   304  0008B6  FFFF               	dw	65535	; assembler added errata NOP
+   305  0008B8                     
+   306                           ;main.c: 34:            {;main.c: 35:                if(CAN_RX_Buff[0] == 0xaa)
+   307  0008B8  0EAA               	movlw	170
+   308  0008BA  1801               	xorwf	_CAN_RX_Buff^0,w,c
+   309  0008BC  A4D8               	btfss	status,2,c
+   310  0008BE  EF63  F004         	goto	u251
+   311  0008C2  EF66  F004         	goto	u250
+   312  0008C6                     u251:
+   313  0008C6  FFFF               	dw	65535	; assembler added errata NOP
+   314  0008C8  EF76  F004         	goto	l130
+   315  0008CC                     u250:
+   316  0008CC  FFFF               	dw	65535	; assembler added errata NOP
+   317  0008CE                     
+   318                           ;main.c: 36:                     CAN_Send_msg(1,8,0x5f,"Received");
+   319  0008CE  0E08               	movlw	8
+   320  0008D0  6E10               	movwf	CAN_Send_msg@DLC^0,c
+   321  0008D2  0E00               	movlw	0
+   322  0008D4  6E12               	movwf	(CAN_Send_msg@ID+1)^0,c
+   323  0008D6  0E5F               	movlw	95
+   324  0008D8  6E11               	movwf	CAN_Send_msg@ID^0,c
+   325  0008DA  0E01               	movlw	low STR_1
+   326  0008DC  6E13               	movwf	CAN_Send_msg@data^0,c
+   327  0008DE  0E06               	movlw	high STR_1
+   328  0008E0  6E14               	movwf	(CAN_Send_msg@data+1)^0,c
+   329  0008E2  0E01               	movlw	1
+   330  0008E4  EC06  F003         	call	_CAN_Send_msg
+   331  0008E8  EF40  F004         	goto	l1039
+   332  0008EC                     l130:
+   333  0008EC  FFFF               	dw	65535	; assembler added errata NOP
+   334  0008EE  EF40  F004         	goto	l1039
+   335  0008F2  EF18  F000         	goto	start
+   336  0008F6                     __end_of_main:
+   337                           	callstack 0
+   338                           
+   339 ;; *************** function _led_blink *****************
+   340 ;; Defined at:
+   341 ;;		line 226 in file "./can_header.h"
+   342 ;; Parameters:    Size  Location     Type
+   343 ;;		None
+   344 ;; Auto vars:     Size  Location     Type
+   345 ;;		None
+   346 ;; Return value:  Size  Location     Type
+   347 ;;                  1    wreg      void 
+   348 ;; Registers used:
+   349 ;;		wreg
+   350 ;; Tracked objects:
+   351 ;;		On entry : 0/0
+   352 ;;		On exit  : 0/0
+   353 ;;		Unchanged: 0/0
+   354 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   355 ;;      Params:         0       0       0       0       0       0       0
+   356 ;;      Locals:         0       0       0       0       0       0       0
+   357 ;;      Temps:          2       0       0       0       0       0       0
+   358 ;;      Totals:         2       0       0       0       0       0       0
+   359 ;;Total ram usage:        2 bytes
+   360 ;; Hardware stack levels used: 1
+   361 ;; Hardware stack levels required when called: 2
+   362 ;; This function calls:
+   363 ;;		Nothing
+   364 ;; This function is called by:
+   365 ;;		_main
+   366 ;; This function uses a non-reentrant model
+   367 ;;
+   368                           
+   369                           	psect	text1
+   370  00098E                     __ptext1:
+   371                           	callstack 0
+   372  00098E                     _led_blink:
+   373                           	callstack 0
+   374  00098E  FFFF               	dw	65535	; assembler added errata NOP
+   375  000990                     
+   376                           ;./can_header.h: 228:     PORTBbits.RB0 = 1;
+   377  000990  8081               	bsf	129,0,c	;volatile
+   378  000992                     
+   379                           ;./can_header.h: 229:     _delay((unsigned long)((100)*(20000000/4000.0)));
+   380  000992  0E02               	movlw	2
+   381  000994  6E11               	movwf	(??_led_blink+1)^0,c
+   382  000996  0EE8               	movlw	232
+   383  000998  6E10               	movwf	??_led_blink^0,c
+   384  00099A  0E52               	movlw	82
+   385  00099C                     u267:
+   386  00099C  FFFF               	dw	65535	; errata NOP
+   387  00099E  2EE8               	decfsz	wreg,f,c
+   388  0009A0  D7FD               	bra	u267
+   389  0009A2  2E10               	decfsz	??_led_blink^0,f,c
+   390  0009A4  D7FB               	bra	u267
+   391  0009A6  2E11               	decfsz	(??_led_blink+1)^0,f,c
+   392  0009A8  D7F9               	bra	u267
+   393  0009AA                     
+   394                           ;./can_header.h: 230:     PORTBbits.RB0 = 0;
+   395  0009AA  9081               	bcf	129,0,c	;volatile
+   396  0009AC  0012               	return		;funcret
+   397  0009AE  FFFF               	dw	65535	; errata NOP
+   398  0009B0                     __end_of_led_blink:
+   399                           	callstack 0
+   400                           
+   401 ;; *************** function _System_Init *****************
+   402 ;; Defined at:
+   403 ;;		line 119 in file "./can_header.h"
+   404 ;; Parameters:    Size  Location     Type
+   405 ;;		None
+   406 ;; Auto vars:     Size  Location     Type
+   407 ;;		None
+   408 ;; Return value:  Size  Location     Type
+   409 ;;                  1    wreg      void 
+   410 ;; Registers used:
+   411 ;;		None
+   412 ;; Tracked objects:
+   413 ;;		On entry : 0/0
+   414 ;;		On exit  : 0/0
+   415 ;;		Unchanged: 0/0
+   416 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   417 ;;      Params:         0       0       0       0       0       0       0
+   418 ;;      Locals:         0       0       0       0       0       0       0
+   419 ;;      Temps:          0       0       0       0       0       0       0
+   420 ;;      Totals:         0       0       0       0       0       0       0
+   421 ;;Total ram usage:        0 bytes
+   422 ;; Hardware stack levels used: 1
+   423 ;; Hardware stack levels required when called: 2
+   424 ;; This function calls:
+   425 ;;		Nothing
+   426 ;; This function is called by:
+   427 ;;		_main
+   428 ;; This function uses a non-reentrant model
+   429 ;;
+   430                           
+   431                           	psect	text2
+   432  0009F0                     __ptext2:
+   433                           	callstack 0
+   434  0009F0                     _System_Init:
+   435                           	callstack 0
+   436  0009F0  FFFF               	dw	65535	; assembler added errata NOP
+   437  0009F2                     
+   438                           ;./can_header.h: 121:     GIE = 1;
+   439  0009F2  8EF2               	bsf	4082,7,c	;volatile
+   440                           
+   441                           ;./can_header.h: 122:     PEIE = 1;
+   442  0009F4  8CF2               	bsf	4082,6,c	;volatile
+   443  0009F6  0012               	return		;funcret
+   444  0009F8  FFFF               	dw	65535	; errata NOP
+   445  0009FA                     __end_of_System_Init:
+   446                           	callstack 0
+   447                           
+   448 ;; *************** function _CAN_set_baud *****************
+   449 ;; Defined at:
+   450 ;;		line 71 in file "./can_header.h"
+   451 ;; Parameters:    Size  Location     Type
+   452 ;;  baud            2    2[COMRAM] int 
+   453 ;; Auto vars:     Size  Location     Type
+   454 ;;		None
+   455 ;; Return value:  Size  Location     Type
+   456 ;;                  2    2[COMRAM] int 
+   457 ;; Registers used:
+   458 ;;		wreg, status,2, status,0
+   459 ;; Tracked objects:
+   460 ;;		On entry : 0/0
+   461 ;;		On exit  : 0/0
+   462 ;;		Unchanged: 0/0
+   463 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   464 ;;      Params:         2       0       0       0       0       0       0
+   465 ;;      Locals:         0       0       0       0       0       0       0
+   466 ;;      Temps:          0       0       0       0       0       0       0
+   467 ;;      Totals:         2       0       0       0       0       0       0
+   468 ;;Total ram usage:        2 bytes
+   469 ;; Hardware stack levels used: 1
+   470 ;; Hardware stack levels required when called: 2
+   471 ;; This function calls:
+   472 ;;		Nothing
+   473 ;; This function is called by:
+   474 ;;		_main
+   475 ;; This function uses a non-reentrant model
+   476 ;;
+   477                           
+   478                           	psect	text3
+   479  00078A                     __ptext3:
+   480                           	callstack 0
+   481  00078A                     _CAN_set_baud:
+   482                           	callstack 0
+   483  00078A  FFFF               	dw	65535	; assembler added errata NOP
+   484  00078C                     
+   485                           ;./can_header.h: 71: int CAN_set_baud(int baud);./can_header.h: 72: {;./can_header.h: 73
+      +                          :     CANCON = 0xE0;
+   486  00078C  0EE0               	movlw	224
+   487  00078E  6E6F               	movwf	111,c	;volatile
+   488  000790                     l95:
+   489  000790  FFFF               	dw	65535	; assembler added errata NOP
+   490  000792  AE6E               	btfss	110,7,c	;volatile
+   491  000794  EFCE  F003         	goto	u141
+   492  000798  EFD1  F003         	goto	u140
+   493  00079C                     u141:
+   494  00079C  FFFF               	dw	65535	; assembler added errata NOP
+   495  00079E  EFC8  F003         	goto	l95
+   496  0007A2                     u140:
+   497  0007A2  FFFF               	dw	65535	; assembler added errata NOP
+   498  0007A4                     
+   499                           ;./can_header.h: 76:     if(baud == 125){
+   500  0007A4  0E7D               	movlw	125
+   501  0007A6  1810               	xorwf	CAN_set_baud@baud^0,w,c
+   502  0007A8  1011               	iorwf	(CAN_set_baud@baud+1)^0,w,c
+   503  0007AA  A4D8               	btfss	status,2,c
+   504  0007AC  EFDA  F003         	goto	u151
+   505  0007B0  EFDD  F003         	goto	u150
+   506  0007B4                     u151:
+   507  0007B4  FFFF               	dw	65535	; assembler added errata NOP
+   508  0007B6  EFFE  F003         	goto	l981
+   509  0007BA                     u150:
+   510  0007BA  FFFF               	dw	65535	; assembler added errata NOP
+   511  0007BC                     
+   512                           ;./can_header.h: 78:         BRGCON1 = 0xC1;
+   513  0007BC  0EC1               	movlw	193
+   514  0007BE  6E70               	movwf	112,c	;volatile
+   515                           
+   516                           ;./can_header.h: 79:         BRGCON2 = 0xB1;
+   517  0007C0  0EB1               	movlw	177
+   518  0007C2  6E71               	movwf	113,c	;volatile
+   519                           
+   520                           ;./can_header.h: 80:         BRGCON3 = 0x45;
+   521  0007C4  0E45               	movlw	69
+   522  0007C6  6E72               	movwf	114,c	;volatile
+   523  0007C8                     
+   524                           ;./can_header.h: 81:         if( (BRGCON1 == 0xC1) && (BRGCON2 == 0xB1) && (BRGCON3 == 0
+      +                          x45))
+   525  0007C8  0EC1               	movlw	193
+   526  0007CA  1870               	xorwf	112,w,c	;volatile
+   527  0007CC  A4D8               	btfss	status,2,c
+   528  0007CE  EFEB  F003         	goto	u161
+   529  0007D2  EFEE  F003         	goto	u160
+   530  0007D6                     u161:
+   531  0007D6  FFFF               	dw	65535	; assembler added errata NOP
+   532  0007D8  EF2E  F004         	goto	l100
+   533  0007DC                     u160:
+   534  0007DC  FFFF               	dw	65535	; assembler added errata NOP
+   535  0007DE  0EB1               	movlw	177
+   536  0007E0  1871               	xorwf	113,w,c	;volatile
+   537  0007E2  A4D8               	btfss	status,2,c
+   538  0007E4  EFF6  F003         	goto	u171
+   539  0007E8  EFF9  F003         	goto	u170
+   540  0007EC                     u171:
+   541  0007EC  FFFF               	dw	65535	; assembler added errata NOP
+   542  0007EE  EF2E  F004         	goto	l100
+   543  0007F2                     u170:
+   544  0007F2  FFFF               	dw	65535	; assembler added errata NOP
+   545  0007F4                     l975:
+   546  0007F4  FFFF               	dw	65535	; assembler added errata NOP
+   547  0007F6  5072               	movf	114,w,c	;volatile
+   548  0007F8  EF2E  F004         	goto	l100
+   549  0007FC                     l981:
+   550  0007FC  FFFF               	dw	65535	; assembler added errata NOP
+   551                           
+   552                           ;./can_header.h: 91:     if(baud == 250){
+   553  0007FE  0EFA               	movlw	250
+   554  000800  1810               	xorwf	CAN_set_baud@baud^0,w,c
+   555  000802  1011               	iorwf	(CAN_set_baud@baud+1)^0,w,c
+   556  000804  A4D8               	btfss	status,2,c
+   557  000806  EF07  F004         	goto	u181
+   558  00080A  EF0A  F004         	goto	u180
+   559  00080E                     u181:
+   560  00080E  FFFF               	dw	65535	; assembler added errata NOP
+   561  000810  EF29  F004         	goto	l995
+   562  000814                     u180:
+   563  000814  FFFF               	dw	65535	; assembler added errata NOP
+   564  000816                     
+   565                           ;./can_header.h: 93:         BRGCON1 = 0xC1;
+   566  000816  0EC1               	movlw	193
+   567  000818  6E70               	movwf	112,c	;volatile
+   568                           
+   569                           ;./can_header.h: 94:         BRGCON2 = 0xAE;
+   570  00081A  0EAE               	movlw	174
+   571  00081C  6E71               	movwf	113,c	;volatile
+   572                           
+   573                           ;./can_header.h: 95:         BRGCON3 = 0xA5;
+   574  00081E  0EA5               	movlw	165
+   575  000820  6E72               	movwf	114,c	;volatile
+   576  000822                     
+   577                           ;./can_header.h: 97:         if( (BRGCON1 == 0xC1) && (BRGCON2 == 0xAE) && (BRGCON3 == 0
+      +                          xA5))
+   578  000822  0EC1               	movlw	193
+   579  000824  1870               	xorwf	112,w,c	;volatile
+   580  000826  A4D8               	btfss	status,2,c
+   581  000828  EF18  F004         	goto	u191
+   582  00082C  EF1B  F004         	goto	u190
+   583  000830                     u191:
+   584  000830  FFFF               	dw	65535	; assembler added errata NOP
+   585  000832  EF2E  F004         	goto	l100
+   586  000836                     u190:
+   587  000836  FFFF               	dw	65535	; assembler added errata NOP
+   588  000838  0EAE               	movlw	174
+   589  00083A  1871               	xorwf	113,w,c	;volatile
+   590  00083C  A4D8               	btfss	status,2,c
+   591  00083E  EF23  F004         	goto	u201
+   592  000842  EF26  F004         	goto	u200
+   593  000846                     u201:
+   594  000846  FFFF               	dw	65535	; assembler added errata NOP
+   595  000848  EF2E  F004         	goto	l100
+   596  00084C                     u200:
+   597  00084C  FFFF               	dw	65535	; assembler added errata NOP
+   598  00084E  EFFA  F003         	goto	l975
+   599  000852                     l995:
+   600  000852  FFFF               	dw	65535	; assembler added errata NOP
+   601                           
+   602                           ;./can_header.h: 107:     CIOCON = 0x20;
+   603  000854  0E20               	movlw	32
+   604  000856  6E73               	movwf	115,c	;volatile
+   605                           
+   606                           ;./can_header.h: 108:     CANCON = 0x08;
+   607  000858  0E08               	movlw	8
+   608  00085A  6E6F               	movwf	111,c	;volatile
+   609  00085C                     l100:
+   610  00085C  FFFF               	dw	65535	; assembler added errata NOP
+   611  00085E  0012               	return		;funcret
+   612  000860  FFFF               	dw	65535	; errata NOP
+   613  000862                     __end_of_CAN_set_baud:
+   614                           	callstack 0
+   615                           
+   616 ;; *************** function _CAN_Send_msg *****************
+   617 ;; Defined at:
+   618 ;;		line 143 in file "./can_header.h"
+   619 ;; Parameters:    Size  Location     Type
+   620 ;;  type            1    wreg     unsigned char 
+   621 ;;  DLC             1    2[COMRAM] unsigned char 
+   622 ;;  ID              2    3[COMRAM] int 
+   623 ;;  data            2    5[COMRAM] PTR unsigned char 
+   624 ;;		 -> STR_1(9), 
+   625 ;; Auto vars:     Size  Location     Type
+   626 ;;  type            1   10[COMRAM] unsigned char 
+   627 ;; Return value:  Size  Location     Type
+   628 ;;                  1    wreg      void 
+   629 ;; Registers used:
+   630 ;;		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru
+   631 ;; Tracked objects:
+   632 ;;		On entry : 0/0
+   633 ;;		On exit  : 0/0
+   634 ;;		Unchanged: 0/0
+   635 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   636 ;;      Params:         5       0       0       0       0       0       0
+   637 ;;      Locals:         1       0       0       0       0       0       0
+   638 ;;      Temps:          3       0       0       0       0       0       0
+   639 ;;      Totals:         9       0       0       0       0       0       0
+   640 ;;Total ram usage:        9 bytes
+   641 ;; Hardware stack levels used: 1
+   642 ;; Hardware stack levels required when called: 2
+   643 ;; This function calls:
+   644 ;;		Nothing
+   645 ;; This function is called by:
+   646 ;;		_main
+   647 ;; This function uses a non-reentrant model
+   648 ;;
+   649                           
+   650                           	psect	text4
+   651  00060C                     __ptext4:
+   652                           	callstack 0
+   653  00060C                     _CAN_Send_msg:
+   654                           	callstack 0
+   655  00060C  FFFF               	dw	65535	; assembler added errata NOP
+   656                           
+   657                           ;incstack = 0
+   658                           ;CAN_Send_msg@type stored from wreg
+   659  00060E  6E18               	movwf	CAN_Send_msg@type^0,c
+   660  000610                     
+   661                           ;./can_header.h: 143: void CAN_Send_msg(char type,char DLC,int ID,char data[]);./can_hea
+      +                          der.h: 144: {;./can_header.h: 152:     CANCON = 0x08;
+   662  000610  0E08               	movlw	8
+   663  000612  6E6F               	movwf	111,c	;volatile
+   664  000614                     
+   665                           ;./can_header.h: 153:     if(type)
+   666  000614  5018               	movf	CAN_Send_msg@type^0,w,c
+   667  000616  B4D8               	btfsc	status,2,c
+   668  000618  EF10  F003         	goto	u211
+   669  00061C  EF13  F003         	goto	u210
+   670  000620                     u211:
+   671  000620  FFFF               	dw	65535	; assembler added errata NOP
+   672  000622  EFC2  F003         	goto	l115
+   673  000626                     u210:
+   674  000626  FFFF               	dw	65535	; assembler added errata NOP
+   675  000628                     
+   676                           ;./can_header.h: 154:     {;./can_header.h: 155:         TXB0SIDH = ((ID >> 3) & 0xFF);
+   677  000628  C011  F015         	movff	CAN_Send_msg@ID,??_CAN_Send_msg
+   678  00062C  C012  F016         	movff	CAN_Send_msg@ID+1,??_CAN_Send_msg+1
+   679  000630  3416               	rlcf	(??_CAN_Send_msg+1)^0,w,c
+   680  000632  3216               	rrcf	(??_CAN_Send_msg+1)^0,f,c
+   681  000634  3215               	rrcf	??_CAN_Send_msg^0,f,c
+   682  000636  3416               	rlcf	(??_CAN_Send_msg+1)^0,w,c
+   683  000638  3216               	rrcf	(??_CAN_Send_msg+1)^0,f,c
+   684  00063A  3215               	rrcf	??_CAN_Send_msg^0,f,c
+   685  00063C  3416               	rlcf	(??_CAN_Send_msg+1)^0,w,c
+   686  00063E  3216               	rrcf	(??_CAN_Send_msg+1)^0,f,c
+   687  000640  3215               	rrcf	??_CAN_Send_msg^0,f,c
+   688  000642  C015  FF41         	movff	??_CAN_Send_msg,3905
+   689                           
+   690                           ;./can_header.h: 156:         TXB0SIDL = ((ID << 5) & 0xFF);
+   691  000646  C011  F015         	movff	CAN_Send_msg@ID,??_CAN_Send_msg
+   692  00064A  0E05               	movlw	5
+   693  00064C  6E16               	movwf	(??_CAN_Send_msg+1)^0,c
+   694  00064E                     u225:
+   695  00064E  FFFF               	dw	65535	; assembler added errata NOP
+   696  000650  90D8               	bcf	status,0,c
+   697  000652  3615               	rlcf	??_CAN_Send_msg^0,f,c
+   698  000654  2E16               	decfsz	(??_CAN_Send_msg+1)^0,f,c
+   699  000656  EF27  F003         	goto	u225
+   700  00065A  C015  FF42         	movff	??_CAN_Send_msg,3906
+   701  00065E                     
+   702                           ;./can_header.h: 158:         _delay((unsigned long)((10)*(20000000/4000.0)));
+   703  00065E  0E31               	movlw	49
+   704  000660  6E15               	movwf	??_CAN_Send_msg^0,c
+   705  000662  0EBB               	movlw	187
+   706  000664                     u277:
+   707  000664  FFFF               	dw	65535	; errata NOP
+   708  000666  2EE8               	decfsz	wreg,f,c
+   709  000668  D7FD               	bra	u277
+   710  00066A  2E15               	decfsz	??_CAN_Send_msg^0,f,c
+   711  00066C  D7FB               	bra	u277
+   712  00066E                     
+   713                           ;./can_header.h: 162:         TXB0DLC = DLC;
+   714  00066E  EE2F F045          	lfsr	2,3909
+   715  000672  C010  FFDF         	movff	CAN_Send_msg@DLC,indf2
+   716  000676                     
+   717                           ;./can_header.h: 165:         TXB0D0 = data[0];
+   718  000676  C013  FFF6         	movff	CAN_Send_msg@data,tblptrl
+   719  00067A  C014  FFF7         	movff	CAN_Send_msg@data+1,tblptrh
+   720  00067E                     	if	0	;tblptru may be non-zero
+   721  00067E                     	endif
+   722  00067E                     	if	0	;tblptru may be non-zero
+   723  00067E                     	endif
+   724  00067E  0008               	tblrd		*
+   725  000680  FFFF               	dw	65535	; errata NOP
+   726  000682  CFF5 F015          	movff	tablat,??_CAN_Send_msg
+   727  000686  C015  FF46         	movff	??_CAN_Send_msg,3910
+   728  00068A                     
+   729                           ;./can_header.h: 166:         TXB0D1 = data[1];
+   730  00068A  0E01               	movlw	1
+   731  00068C  2413               	addwf	CAN_Send_msg@data^0,w,c
+   732  00068E  6E15               	movwf	??_CAN_Send_msg^0,c
+   733  000690  0E00               	movlw	0
+   734  000692  2014               	addwfc	(CAN_Send_msg@data+1)^0,w,c
+   735  000694  6E16               	movwf	(??_CAN_Send_msg+1)^0,c
+   736  000696  C015  FFF6         	movff	??_CAN_Send_msg,tblptrl
+   737  00069A  C016  FFF7         	movff	??_CAN_Send_msg+1,tblptrh
+   738  00069E                     	if	0	;tblptru may be non-zero
+   739  00069E                     	endif
+   740  00069E                     	if	0	;tblptru may be non-zero
+   741  00069E                     	endif
+   742  00069E  0008               	tblrd		*
+   743  0006A0  FFFF               	dw	65535	; errata NOP
+   744  0006A2  CFF5 F017          	movff	tablat,??_CAN_Send_msg+2
+   745  0006A6  C017  FF47         	movff	??_CAN_Send_msg+2,3911
+   746  0006AA                     
+   747                           ;./can_header.h: 167:         TXB0D2 = data[2];
+   748  0006AA  0E02               	movlw	2
+   749  0006AC  2413               	addwf	CAN_Send_msg@data^0,w,c
+   750  0006AE  6E15               	movwf	??_CAN_Send_msg^0,c
+   751  0006B0  0E00               	movlw	0
+   752  0006B2  2014               	addwfc	(CAN_Send_msg@data+1)^0,w,c
+   753  0006B4  6E16               	movwf	(??_CAN_Send_msg+1)^0,c
+   754  0006B6  C015  FFF6         	movff	??_CAN_Send_msg,tblptrl
+   755  0006BA  C016  FFF7         	movff	??_CAN_Send_msg+1,tblptrh
+   756  0006BE                     	if	0	;tblptru may be non-zero
+   757  0006BE                     	endif
+   758  0006BE                     	if	0	;tblptru may be non-zero
+   759  0006BE                     	endif
+   760  0006BE  0008               	tblrd		*
+   761  0006C0  FFFF               	dw	65535	; errata NOP
+   762  0006C2  CFF5 F017          	movff	tablat,??_CAN_Send_msg+2
+   763  0006C6  C017  FF48         	movff	??_CAN_Send_msg+2,3912
+   764  0006CA                     
+   765                           ;./can_header.h: 168:         TXB0D3 = data[3];
+   766  0006CA  0E03               	movlw	3
+   767  0006CC  2413               	addwf	CAN_Send_msg@data^0,w,c
+   768  0006CE  6E15               	movwf	??_CAN_Send_msg^0,c
+   769  0006D0  0E00               	movlw	0
+   770  0006D2  2014               	addwfc	(CAN_Send_msg@data+1)^0,w,c
+   771  0006D4  6E16               	movwf	(??_CAN_Send_msg+1)^0,c
+   772  0006D6  C015  FFF6         	movff	??_CAN_Send_msg,tblptrl
+   773  0006DA  C016  FFF7         	movff	??_CAN_Send_msg+1,tblptrh
+   774  0006DE                     	if	0	;tblptru may be non-zero
+   775  0006DE                     	endif
+   776  0006DE                     	if	0	;tblptru may be non-zero
+   777  0006DE                     	endif
+   778  0006DE  0008               	tblrd		*
+   779  0006E0  FFFF               	dw	65535	; errata NOP
+   780  0006E2  CFF5 F017          	movff	tablat,??_CAN_Send_msg+2
+   781  0006E6  C017  FF49         	movff	??_CAN_Send_msg+2,3913
+   782  0006EA                     
+   783                           ;./can_header.h: 169:         TXB0D4 = data[4];
+   784  0006EA  0E04               	movlw	4
+   785  0006EC  2413               	addwf	CAN_Send_msg@data^0,w,c
+   786  0006EE  6E15               	movwf	??_CAN_Send_msg^0,c
+   787  0006F0  0E00               	movlw	0
+   788  0006F2  2014               	addwfc	(CAN_Send_msg@data+1)^0,w,c
+   789  0006F4  6E16               	movwf	(??_CAN_Send_msg+1)^0,c
+   790  0006F6  C015  FFF6         	movff	??_CAN_Send_msg,tblptrl
+   791  0006FA  C016  FFF7         	movff	??_CAN_Send_msg+1,tblptrh
+   792  0006FE                     	if	0	;tblptru may be non-zero
+   793  0006FE                     	endif
+   794  0006FE                     	if	0	;tblptru may be non-zero
+   795  0006FE                     	endif
+   796  0006FE  0008               	tblrd		*
+   797  000700  FFFF               	dw	65535	; errata NOP
+   798  000702  CFF5 F017          	movff	tablat,??_CAN_Send_msg+2
+   799  000706  C017  FF4A         	movff	??_CAN_Send_msg+2,3914
+   800  00070A                     
+   801                           ;./can_header.h: 170:         TXB0D5 = data[5];
+   802  00070A  0E05               	movlw	5
+   803  00070C  2413               	addwf	CAN_Send_msg@data^0,w,c
+   804  00070E  6E15               	movwf	??_CAN_Send_msg^0,c
+   805  000710  0E00               	movlw	0
+   806  000712  2014               	addwfc	(CAN_Send_msg@data+1)^0,w,c
+   807  000714  6E16               	movwf	(??_CAN_Send_msg+1)^0,c
+   808  000716  C015  FFF6         	movff	??_CAN_Send_msg,tblptrl
+   809  00071A  C016  FFF7         	movff	??_CAN_Send_msg+1,tblptrh
+   810  00071E                     	if	0	;tblptru may be non-zero
+   811  00071E                     	endif
+   812  00071E                     	if	0	;tblptru may be non-zero
+   813  00071E                     	endif
+   814  00071E  0008               	tblrd		*
+   815  000720  FFFF               	dw	65535	; errata NOP
+   816  000722  CFF5 F017          	movff	tablat,??_CAN_Send_msg+2
+   817  000726  C017  FF4B         	movff	??_CAN_Send_msg+2,3915
+   818  00072A                     
+   819                           ;./can_header.h: 171:         TXB0D6 = data[6];
+   820  00072A  0E06               	movlw	6
+   821  00072C  2413               	addwf	CAN_Send_msg@data^0,w,c
+   822  00072E  6E15               	movwf	??_CAN_Send_msg^0,c
+   823  000730  0E00               	movlw	0
+   824  000732  2014               	addwfc	(CAN_Send_msg@data+1)^0,w,c
+   825  000734  6E16               	movwf	(??_CAN_Send_msg+1)^0,c
+   826  000736  C015  FFF6         	movff	??_CAN_Send_msg,tblptrl
+   827  00073A  C016  FFF7         	movff	??_CAN_Send_msg+1,tblptrh
+   828  00073E                     	if	0	;tblptru may be non-zero
+   829  00073E                     	endif
+   830  00073E                     	if	0	;tblptru may be non-zero
+   831  00073E                     	endif
+   832  00073E  0008               	tblrd		*
+   833  000740  FFFF               	dw	65535	; errata NOP
+   834  000742  CFF5 F017          	movff	tablat,??_CAN_Send_msg+2
+   835  000746  C017  FF4C         	movff	??_CAN_Send_msg+2,3916
+   836  00074A                     
+   837                           ;./can_header.h: 172:         TXB0D7 = data[7];
+   838  00074A  0E07               	movlw	7
+   839  00074C  2413               	addwf	CAN_Send_msg@data^0,w,c
+   840  00074E  6E15               	movwf	??_CAN_Send_msg^0,c
+   841  000750  0E00               	movlw	0
+   842  000752  2014               	addwfc	(CAN_Send_msg@data+1)^0,w,c
+   843  000754  6E16               	movwf	(??_CAN_Send_msg+1)^0,c
+   844  000756  C015  FFF6         	movff	??_CAN_Send_msg,tblptrl
+   845  00075A  C016  FFF7         	movff	??_CAN_Send_msg+1,tblptrh
+   846  00075E                     	if	0	;tblptru may be non-zero
+   847  00075E                     	endif
+   848  00075E                     	if	0	;tblptru may be non-zero
+   849  00075E                     	endif
+   850  00075E  0008               	tblrd		*
+   851  000760  FFFF               	dw	65535	; errata NOP
+   852  000762  CFF5 F017          	movff	tablat,??_CAN_Send_msg+2
+   853  000766  C017  FF4D         	movff	??_CAN_Send_msg+2,3917
+   854  00076A                     
+   855                           ;./can_header.h: 174:         TXB0CON = 0x08;
+   856  00076A  0E08               	movlw	8
+   857  00076C  CFE8 FF40          	movff	wreg,3904
+   858  000770                     
+   859                           ;./can_header.h: 176:          _delay((unsigned long)((10)*(20000000/4000.0)));
+   860  000770  0E31               	movlw	49
+   861  000772  6E15               	movwf	??_CAN_Send_msg^0,c
+   862  000774  0EBB               	movlw	187
+   863  000776                     u287:
+   864  000776  FFFF               	dw	65535	; errata NOP
+   865  000778  2EE8               	decfsz	wreg,f,c
+   866  00077A  D7FD               	bra	u287
+   867  00077C  2E15               	decfsz	??_CAN_Send_msg^0,f,c
+   868  00077E  D7FB               	bra	u287
+   869  000780                     
+   870                           ;./can_header.h: 178:         CANCON = 0x08;
+   871  000780  0E08               	movlw	8
+   872  000782  6E6F               	movwf	111,c	;volatile
+   873  000784                     l115:
+   874  000784  FFFF               	dw	65535	; assembler added errata NOP
+   875  000786  0012               	return		;funcret
+   876  000788  FFFF               	dw	65535	; errata NOP
+   877  00078A                     __end_of_CAN_Send_msg:
+   878                           	callstack 0
+   879                           
+   880 ;; *************** function _CAN_Read *****************
+   881 ;; Defined at:
+   882 ;;		line 208 in file "./can_header.h"
+   883 ;; Parameters:    Size  Location     Type
+   884 ;;		None
+   885 ;; Auto vars:     Size  Location     Type
+   886 ;;		None
+   887 ;; Return value:  Size  Location     Type
+   888 ;;                  1    wreg      void 
+   889 ;; Registers used:
+   890 ;;		wreg, status,2, status,0
+   891 ;; Tracked objects:
+   892 ;;		On entry : 0/0
+   893 ;;		On exit  : 0/0
+   894 ;;		Unchanged: 0/0
+   895 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   896 ;;      Params:         0       0       0       0       0       0       0
+   897 ;;      Locals:         0       0       0       0       0       0       0
+   898 ;;      Temps:          6       0       0       0       0       0       0
+   899 ;;      Totals:         6       0       0       0       0       0       0
+   900 ;;Total ram usage:        6 bytes
+   901 ;; Hardware stack levels used: 1
+   902 ;; Hardware stack levels required when called: 2
+   903 ;; This function calls:
+   904 ;;		Nothing
+   905 ;; This function is called by:
+   906 ;;		_main
+   907 ;; This function uses a non-reentrant model
+   908 ;;
+   909                           
+   910                           	psect	text5
+   911  0008F6                     __ptext5:
+   912                           	callstack 0
+   913  0008F6                     _CAN_Read:
+   914                           	callstack 0
+   915  0008F6  FFFF               	dw	65535	; assembler added errata NOP
+   916  0008F8                     
+   917                           ;./can_header.h: 210:     CANCON = 0x0E;
+   918  0008F8  0E0E               	movlw	14
+   919  0008FA  6E6F               	movwf	111,c	;volatile
+   920  0008FC                     
+   921                           ;./can_header.h: 211:     CAN_RX_DLC = RXB0DLC;
+   922  0008FC  CF65 F009          	movff	3941,_CAN_RX_DLC	;volatile
+   923  000900  6A0A               	clrf	(_CAN_RX_DLC+1)^0,c
+   924  000902                     
+   925                           ;./can_header.h: 212:     CAN_RX_ID = ((RXB0SIDL >> 5)&0x1f) | ((RXB0SIDH << 3)& 0x7f8);
+   926  000902  0EF8               	movlw	248
+   927  000904  6E10               	movwf	??_CAN_Read^0,c
+   928  000906  0E07               	movlw	7
+   929  000908  6E11               	movwf	(??_CAN_Read+1)^0,c
+   930  00090A  5061               	movf	97,w,c	;volatile
+   931  00090C  6E12               	movwf	(??_CAN_Read+2)^0,c
+   932  00090E  6A13               	clrf	(??_CAN_Read+3)^0,c
+   933  000910  90D8               	bcf	status,0,c
+   934  000912  3612               	rlcf	(??_CAN_Read+2)^0,f,c
+   935  000914  3613               	rlcf	(??_CAN_Read+3)^0,f,c
+   936  000916  90D8               	bcf	status,0,c
+   937  000918  3612               	rlcf	(??_CAN_Read+2)^0,f,c
+   938  00091A  3613               	rlcf	(??_CAN_Read+3)^0,f,c
+   939  00091C  90D8               	bcf	status,0,c
+   940  00091E  3612               	rlcf	(??_CAN_Read+2)^0,f,c
+   941  000920  3613               	rlcf	(??_CAN_Read+3)^0,f,c
+   942  000922  5010               	movf	??_CAN_Read^0,w,c
+   943  000924  1612               	andwf	(??_CAN_Read+2)^0,f,c
+   944  000926  5011               	movf	(??_CAN_Read+1)^0,w,c
+   945  000928  1613               	andwf	(??_CAN_Read+3)^0,f,c
+   946  00092A  3862               	swapf	98,w,c	;volatile
+   947  00092C  42E8               	rrncf	wreg,f,c
+   948  00092E  0B07               	andlw	7
+   949  000930  0B1F               	andlw	31
+   950  000932  6E14               	movwf	(??_CAN_Read+4)^0,c
+   951  000934  6A15               	clrf	(??_CAN_Read+5)^0,c
+   952  000936  5012               	movf	(??_CAN_Read+2)^0,w,c
+   953  000938  1014               	iorwf	(??_CAN_Read+4)^0,w,c
+   954  00093A  6E0B               	movwf	_CAN_RX_ID^0,c
+   955  00093C  5013               	movf	(??_CAN_Read+3)^0,w,c
+   956  00093E  1015               	iorwf	(??_CAN_Read+5)^0,w,c
+   957  000940  6E0C               	movwf	(_CAN_RX_ID+1)^0,c
+   958  000942                     
+   959                           ;./can_header.h: 214:     CAN_RX_Buff[0] = RXB0D0;
+   960  000942  CF66 F001          	movff	3942,_CAN_RX_Buff	;volatile
+   961  000946                     
+   962                           ;./can_header.h: 215:     CAN_RX_Buff[1] = RXB0D1;
+   963  000946  CF67 F002          	movff	3943,_CAN_RX_Buff+1	;volatile
+   964  00094A                     
+   965                           ;./can_header.h: 216:     CAN_RX_Buff[2] = RXB0D2;
+   966  00094A  CF68 F003          	movff	3944,_CAN_RX_Buff+2	;volatile
+   967  00094E                     
+   968                           ;./can_header.h: 217:     CAN_RX_Buff[3] = RXB0D3;
+   969  00094E  CF69 F004          	movff	3945,_CAN_RX_Buff+3	;volatile
+   970  000952                     
+   971                           ;./can_header.h: 218:     CAN_RX_Buff[4] = RXB0D4;
+   972  000952  CF6A F005          	movff	3946,_CAN_RX_Buff+4	;volatile
+   973  000956                     
+   974                           ;./can_header.h: 219:     CAN_RX_Buff[5] = RXB0D5;
+   975  000956  CF6B F006          	movff	3947,_CAN_RX_Buff+5	;volatile
+   976  00095A                     
+   977                           ;./can_header.h: 220:     CAN_RX_Buff[6] = RXB0D6;
+   978  00095A  CF6C F007          	movff	3948,_CAN_RX_Buff+6	;volatile
+   979  00095E                     
+   980                           ;./can_header.h: 221:     CAN_RX_Buff[7] = RXB0D7;
+   981  00095E  CF6D F008          	movff	3949,_CAN_RX_Buff+7	;volatile
+   982  000962                     
+   983                           ;./can_header.h: 223:     RXB0CONbits.RXFUL = 0;
+   984  000962  9E60               	bcf	96,7,c	;volatile
+   985  000964  0012               	return		;funcret
+   986  000966  FFFF               	dw	65535	; errata NOP
+   987  000968                     __end_of_CAN_Read:
+   988                           	callstack 0
+   989                           
+   990 ;; *************** function _CAN_RX_Config *****************
+   991 ;; Defined at:
+   992 ;;		line 188 in file "./can_header.h"
+   993 ;; Parameters:    Size  Location     Type
+   994 ;;		None
+   995 ;; Auto vars:     Size  Location     Type
+   996 ;;		None
+   997 ;; Return value:  Size  Location     Type
+   998 ;;                  1    wreg      void 
+   999 ;; Registers used:
+  1000 ;;		wreg, status,2
+  1001 ;; Tracked objects:
+  1002 ;;		On entry : 0/0
+  1003 ;;		On exit  : 0/0
+  1004 ;;		Unchanged: 0/0
+  1005 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1006 ;;      Params:         0       0       0       0       0       0       0
+  1007 ;;      Locals:         0       0       0       0       0       0       0
+  1008 ;;      Temps:          0       0       0       0       0       0       0
+  1009 ;;      Totals:         0       0       0       0       0       0       0
+  1010 ;;Total ram usage:        0 bytes
+  1011 ;; Hardware stack levels used: 1
+  1012 ;; Hardware stack levels required when called: 2
+  1013 ;; This function calls:
+  1014 ;;		Nothing
+  1015 ;; This function is called by:
+  1016 ;;		_main
+  1017 ;; This function uses a non-reentrant model
+  1018 ;;
+  1019                           
+  1020                           	psect	text6
+  1021  000968                     __ptext6:
+  1022                           	callstack 0
+  1023  000968                     _CAN_RX_Config:
+  1024                           	callstack 0
+  1025  000968  FFFF               	dw	65535	; assembler added errata NOP
+  1026  00096A                     
+  1027                           ;./can_header.h: 190:     PIE3bits.RXB0IE = 1;
+  1028  00096A  80A3               	bsf	163,0,c	;volatile
+  1029                           
+  1030                           ;./can_header.h: 191:     IPR3bits.RXB0IP = 1;
+  1031  00096C  80A5               	bsf	165,0,c	;volatile
+  1032  00096E                     
+  1033                           ;./can_header.h: 192:     CANCON = 0x0E;
+  1034  00096E  0E0E               	movlw	14
+  1035  000970  6E6F               	movwf	111,c	;volatile
+  1036  000972                     
+  1037                           ;./can_header.h: 195:     RXF0SIDH = 0x00;
+  1038  000972  0E00               	movlw	0
+  1039  000974  CFE8 FF00          	movff	wreg,3840
+  1040  000978                     
+  1041                           ;./can_header.h: 196:     RXF0SIDL = 0x00;
+  1042  000978  0E00               	movlw	0
+  1043  00097A  CFE8 FF01          	movff	wreg,3841
+  1044  00097E                     
+  1045                           ;./can_header.h: 198:     RXM0SIDL = 0x00;
+  1046  00097E  0E00               	movlw	0
+  1047  000980  CFE8 FF19          	movff	wreg,3865
+  1048  000984                     
+  1049                           ;./can_header.h: 199:     RXM0SIDH = 0x00;
+  1050  000984  0E00               	movlw	0
+  1051  000986  CFE8 FF18          	movff	wreg,3864
+  1052  00098A  0012               	return		;funcret
+  1053  00098C  FFFF               	dw	65535	; errata NOP
+  1054  00098E                     __end_of_CAN_RX_Config:
+  1055                           	callstack 0
+  1056                           
+  1057 ;; *************** function _CAN_Init *****************
+  1058 ;; Defined at:
+  1059 ;;		line 127 in file "./can_header.h"
+  1060 ;; Parameters:    Size  Location     Type
+  1061 ;;		None
+  1062 ;; Auto vars:     Size  Location     Type
+  1063 ;;		None
+  1064 ;; Return value:  Size  Location     Type
+  1065 ;;                  1    wreg      void 
+  1066 ;; Registers used:
+  1067 ;;		None
+  1068 ;; Tracked objects:
+  1069 ;;		On entry : 0/0
+  1070 ;;		On exit  : 0/0
+  1071 ;;		Unchanged: 0/0
+  1072 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1073 ;;      Params:         0       0       0       0       0       0       0
+  1074 ;;      Locals:         0       0       0       0       0       0       0
+  1075 ;;      Temps:          0       0       0       0       0       0       0
+  1076 ;;      Totals:         0       0       0       0       0       0       0
+  1077 ;;Total ram usage:        0 bytes
+  1078 ;; Hardware stack levels used: 1
+  1079 ;; Hardware stack levels required when called: 2
+  1080 ;; This function calls:
+  1081 ;;		Nothing
+  1082 ;; This function is called by:
+  1083 ;;		_main
+  1084 ;; This function uses a non-reentrant model
+  1085 ;;
+  1086                           
+  1087                           	psect	text7
+  1088  0009FA                     __ptext7:
+  1089                           	callstack 0
+  1090  0009FA                     _CAN_Init:
+  1091                           	callstack 0
+  1092  0009FA  FFFF               	dw	65535	; assembler added errata NOP
+  1093  0009FC                     
+  1094                           ;./can_header.h: 129:     TRISBbits.RB2 = 0;
+  1095  0009FC  9493               	bcf	147,2,c	;volatile
+  1096                           
+  1097                           ;./can_header.h: 130:     TRISBbits.RB3 = 1;
+  1098  0009FE  8693               	bsf	147,3,c	;volatile
+  1099  000A00  0012               	return		;funcret
+  1100  000A02  FFFF               	dw	65535	; errata NOP
+  1101  000A04                     __end_of_CAN_Init:
+  1102                           	callstack 0
+  1103                           
+  1104 ;; *************** function _ISR1 *****************
+  1105 ;; Defined at:
+  1106 ;;		line 48 in file "main.c"
+  1107 ;; Parameters:    Size  Location     Type
+  1108 ;;		None
+  1109 ;; Auto vars:     Size  Location     Type
+  1110 ;;		None
+  1111 ;; Return value:  Size  Location     Type
+  1112 ;;                  1    wreg      void 
+  1113 ;; Registers used:
+  1114 ;;		wreg, status,2, cstack
+  1115 ;; Tracked objects:
+  1116 ;;		On entry : 0/0
+  1117 ;;		On exit  : 0/0
+  1118 ;;		Unchanged: 0/0
+  1119 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1120 ;;      Params:         0       0       0       0       0       0       0
+  1121 ;;      Locals:         0       0       0       0       0       0       0
+  1122 ;;      Temps:          0       0       0       0       0       0       0
+  1123 ;;      Totals:         0       0       0       0       0       0       0
+  1124 ;;Total ram usage:        0 bytes
+  1125 ;; Hardware stack levels used: 1
+  1126 ;; Hardware stack levels required when called: 1
+  1127 ;; This function calls:
+  1128 ;;		i2_led_blink
+  1129 ;; This function is called by:
+  1130 ;;		Interrupt level 2
+  1131 ;; This function uses a non-reentrant model
+  1132 ;;
+  1133                           
+  1134                           	psect	intcode
+  1135  000008                     __pintcode:
+  1136                           	callstack 0
+  1137  000008                     _ISR1:
+  1138                           	callstack 0
+  1139  000008  FFFF               	dw	65535	; assembler added errata NOP
+  1140                           
+  1141                           ;incstack = 0
+  1142  00000A  8219               	bsf	int$flags,1,c	;set compiler interrupt flag (level 2)
+  1143  00000C                     
+  1144                           ;main.c: 50:     if(PIR3bits.RXB0IF)
+  1145  00000C  A0A4               	btfss	164,0,c	;volatile
+  1146  00000E  EF0B  F000         	goto	i2u13_41
+  1147  000012  EF0E  F000         	goto	i2u13_40
+  1148  000016                     i2u13_41:
+  1149  000016  FFFF               	dw	65535	; assembler added errata NOP
+  1150  000018  EF14  F000         	goto	i2l141
+  1151  00001C                     i2u13_40:
+  1152  00001C  FFFF               	dw	65535	; assembler added errata NOP
+  1153  00001E                     
+  1154                           ;main.c: 51:     {;main.c: 53:         PIR3bits.RXB0IF = 0;
+  1155  00001E  90A4               	bcf	164,0,c	;volatile
+  1156  000020                     
+  1157                           ;main.c: 54:         CAN_RX_FLAG = 1;
+  1158  000020  0E01               	movlw	1
+  1159  000022  6E0D               	movwf	_CAN_RX_FLAG^0,c
+  1160  000024                     
+  1161                           ;main.c: 55:         led_blink();
+  1162  000024  ECD8  F004         	call	i2_led_blink	;wreg free
+  1163  000028                     i2l141:
+  1164  000028  FFFF               	dw	65535	; assembler added errata NOP
+  1165  00002A  9219               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
+  1166  00002C  0011               	retfie		f
+  1167  00002E  FFFF               	dw	65535	; errata NOP
+  1168  000030                     __end_of_ISR1:
+  1169                           	callstack 0
+  1170                           
+  1171 ;; *************** function i2_led_blink *****************
+  1172 ;; Defined at:
+  1173 ;;		line 226 in file "./can_header.h"
+  1174 ;; Parameters:    Size  Location     Type
+  1175 ;;		None
+  1176 ;; Auto vars:     Size  Location     Type
+  1177 ;;		None
+  1178 ;; Return value:  Size  Location     Type
+  1179 ;;                  1    wreg      void 
+  1180 ;; Registers used:
+  1181 ;;		wreg
+  1182 ;; Tracked objects:
+  1183 ;;		On entry : 0/0
+  1184 ;;		On exit  : 0/0
+  1185 ;;		Unchanged: 0/0
+  1186 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1187 ;;      Params:         0       0       0       0       0       0       0
+  1188 ;;      Locals:         0       0       0       0       0       0       0
+  1189 ;;      Temps:          2       0       0       0       0       0       0
+  1190 ;;      Totals:         2       0       0       0       0       0       0
+  1191 ;;Total ram usage:        2 bytes
+  1192 ;; Hardware stack levels used: 1
+  1193 ;; This function calls:
+  1194 ;;		Nothing
+  1195 ;; This function is called by:
+  1196 ;;		_ISR1
+  1197 ;; This function uses a non-reentrant model
+  1198 ;;
+  1199                           
+  1200                           	psect	text9
+  1201  0009B0                     __ptext9:
+  1202                           	callstack 0
+  1203  0009B0                     i2_led_blink:
+  1204                           	callstack 0
+  1205  0009B0  FFFF               	dw	65535	; assembler added errata NOP
+  1206  0009B2                     
+  1207                           ;./can_header.h: 228:     PORTBbits.RB0 = 1;
+  1208  0009B2  8081               	bsf	129,0,c	;volatile
+  1209  0009B4                     
+  1210                           ;./can_header.h: 229:     _delay((unsigned long)((100)*(20000000/4000.0)));
+  1211  0009B4  0E02               	movlw	2
+  1212  0009B6  6E0F               	movwf	(??i2_led_blink+1)^0,c
+  1213  0009B8  0EE8               	movlw	232
+  1214  0009BA  6E0E               	movwf	??i2_led_blink^0,c
+  1215  0009BC  0E52               	movlw	82
+  1216  0009BE                     i2u29_47:
+  1217  0009BE  FFFF               	dw	65535	; errata NOP
+  1218  0009C0  2EE8               	decfsz	wreg,f,c
+  1219  0009C2  D7FD               	bra	i2u29_47
+  1220  0009C4  2E0E               	decfsz	??i2_led_blink^0,f,c
+  1221  0009C6  D7FB               	bra	i2u29_47
+  1222  0009C8  2E0F               	decfsz	(??i2_led_blink+1)^0,f,c
+  1223  0009CA  D7F9               	bra	i2u29_47
+  1224  0009CC                     
+  1225                           ;./can_header.h: 230:     PORTBbits.RB0 = 0;
+  1226  0009CC  9081               	bcf	129,0,c	;volatile
+  1227  0009CE  0012               	return		;funcret
+  1228  0009D0  FFFF               	dw	65535	; errata NOP
+  1229  0009D2                     __end_ofi2_led_blink:
+  1230                           	callstack 0
+  1231                           
+  1232                           	psect	rparam
+  1233  0000                     
+  1234                           	psect	temp
+  1235  000019                     btemp:
+  1236                           	callstack 0
+  1237  000019                     	ds	1
+  1238  0000                     int$flags	set	btemp
+  1239  0000                     wtemp8	set	btemp+1
+  1240  0000                     ttemp5	set	btemp+1
+  1241  0000                     ttemp6	set	btemp+4
+  1242  0000                     ttemp7	set	btemp+8
+  1243                           
+  1244                           	psect	idloc
+  1245                           
+  1246                           ;Config register IDLOC0 @ 0x200000
+  1247                           ;	unspecified, using default values
+  1248  200000                     	org	2097152
+  1249  200000  FF                 	db	255
+  1250                           
+  1251                           ;Config register IDLOC1 @ 0x200001
+  1252                           ;	unspecified, using default values
+  1253  200001                     	org	2097153
+  1254  200001  FF                 	db	255
+  1255                           
+  1256                           ;Config register IDLOC2 @ 0x200002
+  1257                           ;	unspecified, using default values
+  1258  200002                     	org	2097154
+  1259  200002  FF                 	db	255
+  1260                           
+  1261                           ;Config register IDLOC3 @ 0x200003
+  1262                           ;	unspecified, using default values
+  1263  200003                     	org	2097155
+  1264  200003  FF                 	db	255
+  1265                           
+  1266                           ;Config register IDLOC4 @ 0x200004
+  1267                           ;	unspecified, using default values
+  1268  200004                     	org	2097156
+  1269  200004  FF                 	db	255
+  1270                           
+  1271                           ;Config register IDLOC5 @ 0x200005
+  1272                           ;	unspecified, using default values
+  1273  200005                     	org	2097157
+  1274  200005  FF                 	db	255
+  1275                           
+  1276                           ;Config register IDLOC6 @ 0x200006
+  1277                           ;	unspecified, using default values
+  1278  200006                     	org	2097158
+  1279  200006  FF                 	db	255
+  1280                           
+  1281                           ;Config register IDLOC7 @ 0x200007
+  1282                           ;	unspecified, using default values
+  1283  200007                     	org	2097159
+  1284  200007  FF                 	db	255
+  1285                           
+  1286                           	psect	config
+  1287                           
+  1288                           ; Padding undefined space
+  1289  300000                     	org	3145728
+  1290  300000  FF                 	db	255
+  1291                           
+  1292                           ;Config register CONFIG1H @ 0x300001
+  1293                           ;	Oscillator Selection bits
+  1294                           ;	OSC = HS, HS oscillator
+  1295                           ;	Oscillator System Clock Switch Enable bit
+  1296                           ;	OSCS = OFF, Oscillator system clock switch option is disabled (main oscillator is sour
+      +                          ce)
+  1297  300001                     	org	3145729
+  1298  300001  22                 	db	34
+  1299                           
+  1300                           ;Config register CONFIG2L @ 0x300002
+  1301                           ;	Power-up Timer Enable bit
+  1302                           ;	PWRT = OFF, PWRT disabled
+  1303                           ;	Brown-out Reset Enable bit
+  1304                           ;	BOR = ON, Brown-out Reset enabled
+  1305                           ;	Brown-out Reset Voltage bits
+  1306                           ;	BORV = 25, VBOR set to 2.5V
+  1307  300002                     	org	3145730
+  1308  300002  0F                 	db	15
+  1309                           
+  1310                           ;Config register CONFIG2H @ 0x300003
+  1311                           ;	Watchdog Timer Enable bit
+  1312                           ;	WDT = OFF, WDT disabled (control is placed on the SWDTEN bit)
+  1313                           ;	Watchdog Timer Postscale Select bits
+  1314                           ;	WDTPS = 128, 1:128
+  1315  300003                     	org	3145731
+  1316  300003  0E                 	db	14
+  1317                           
+  1318                           ;Config register CONFIG4L @ 0x300006
+  1319                           ;	Stack Full/Underflow Reset Enable bit
+  1320                           ;	STVR = OFF, Stack Full/Underflow will not cause Reset
+  1321                           ;	Low-Voltage ICSP Enable bit
+  1322                           ;	LVP = OFF, Low-Voltage ICSP disabled
+  1323                           ;	Background Debugger Enable bit
+  1324                           ;	DEBUG = 0x1, unprogrammed default
+  1325  300006                     	org	3145734
+  1326  300006  80                 	db	128
+  1327                           
+  1328                           ; Padding undefined space
+  1329  300007                     	org	3145735
+  1330  300007  FF                 	db	255
+  1331                           
+  1332                           ;Config register CONFIG5L @ 0x300008
+  1333                           ;	Code Protection bit
+  1334                           ;	CP0 = OFF, Block 0 (000200-001FFFh) not code protected
+  1335                           ;	Code Protection bit
+  1336                           ;	CP1 = OFF, Block 1 (002000-003FFFh) not code protected
+  1337                           ;	Code Protection bit
+  1338                           ;	CP2 = OFF, Block 2 (004000-005FFFh) not code protected
+  1339                           ;	Code Protection bit
+  1340                           ;	CP3 = OFF, Block 3 (006000-007FFFh) not code protected
+  1341  300008                     	org	3145736
+  1342  300008  0F                 	db	15
+  1343                           
+  1344                           ;Config register CONFIG5H @ 0x300009
+  1345                           ;	Boot Block Code Protection bit
+  1346                           ;	CPB = OFF, Boot Block (000000-0001FFh) not code protected
+  1347                           ;	Data EEPROM Code Protection bit
+  1348                           ;	CPD = OFF, Data EEPROM not code protected
+  1349  300009                     	org	3145737
+  1350  300009  C0                 	db	192
+  1351                           
+  1352                           ;Config register CONFIG6L @ 0x30000A
+  1353                           ;	Write Protection bit
+  1354                           ;	WRT0 = OFF, Block 0 (000200-001FFFh) not write protected
+  1355                           ;	Write Protection bit
+  1356                           ;	WRT1 = OFF, Block 1 (002000-003FFFh) not write protected
+  1357                           ;	Write Protection bit
+  1358                           ;	WRT2 = OFF, Block 2 (004000-005FFFh) not write protected
+  1359                           ;	Write Protection bit
+  1360                           ;	WRT3 = OFF, Block 3 (006000-007FFFh) not write protected
+  1361  30000A                     	org	3145738
+  1362  30000A  0F                 	db	15
+  1363                           
+  1364                           ;Config register CONFIG6H @ 0x30000B
+  1365                           ;	Configuration Register Write Protection bit
+  1366                           ;	WRTC = OFF, Configuration registers (300000-3000FFh) not write protected
+  1367                           ;	Boot Block Write Protection bit
+  1368                           ;	WRTB = OFF, Boot Block (000000-0001FFh) not write protected
+  1369                           ;	Data EEPROM Write Protection bit
+  1370                           ;	WRTD = OFF, Data EEPROM not write protected
+  1371  30000B                     	org	3145739
+  1372  30000B  E0                 	db	224
+  1373                           
+  1374                           ;Config register CONFIG7L @ 0x30000C
+  1375                           ;	Table Read Protection bit
+  1376                           ;	EBTR0 = OFF, Block 0 (000200-001FFFh) not protected from Table Reads executed in other
+      +                           blocks
+  1377                           ;	Table Read Protection bit
+  1378                           ;	EBTR1 = OFF, Block 1 (002000-003FFFh) not protected from Table Reads executed in other
+      +                           blocks
+  1379                           ;	Table Read Protection bit
+  1380                           ;	EBTR2 = OFF, Block 2 (004000-005FFFh) not protected from Table Reads executed in other
+      +                           blocks
+  1381                           ;	Table Read Protection bit
+  1382                           ;	EBTR3 = OFF, Block 3 (006000-007FFFh) not protected from Table Reads executed in other
+      +                           blocks
+  1383  30000C                     	org	3145740
+  1384  30000C  0F                 	db	15
+  1385                           
+  1386                           ;Config register CONFIG7H @ 0x30000D
+  1387                           ;	Boot Block Table Read Protection bit
+  1388                           ;	EBTRB = OFF, Boot Block (000000-0001FFh) not protected from Table Reads executed in ot
+      +                          her blocks
+  1389  30000D                     	org	3145741
+  1390  30000D  40                 	db	64
+  1391                           tosu	equ	0xFFF
+  1392                           tosh	equ	0xFFE
+  1393                           tosl	equ	0xFFD
+  1394                           stkptr	equ	0xFFC
+  1395                           pclatu	equ	0xFFB
+  1396                           pclath	equ	0xFFA
+  1397                           pcl	equ	0xFF9
+  1398                           tblptru	equ	0xFF8
+  1399                           tblptrh	equ	0xFF7
+  1400                           tblptrl	equ	0xFF6
+  1401                           tablat	equ	0xFF5
+  1402                           prodh	equ	0xFF4
+  1403                           prodl	equ	0xFF3
+  1404                           indf0	equ	0xFEF
+  1405                           postinc0	equ	0xFEE
+  1406                           postdec0	equ	0xFED
+  1407                           preinc0	equ	0xFEC
+  1408                           plusw0	equ	0xFEB
+  1409                           fsr0h	equ	0xFEA
+  1410                           fsr0l	equ	0xFE9
+  1411                           wreg	equ	0xFE8
+  1412                           indf1	equ	0xFE7
+  1413                           postinc1	equ	0xFE6
+  1414                           postdec1	equ	0xFE5
+  1415                           preinc1	equ	0xFE4
+  1416                           plusw1	equ	0xFE3
+  1417                           fsr1h	equ	0xFE2
+  1418                           fsr1l	equ	0xFE1
+  1419                           bsr	equ	0xFE0
+  1420                           indf2	equ	0xFDF
+  1421                           postinc2	equ	0xFDE
+  1422                           postdec2	equ	0xFDD
+  1423                           preinc2	equ	0xFDC
+  1424                           plusw2	equ	0xFDB
+  1425                           fsr2h	equ	0xFDA
+  1426                           fsr2l	equ	0xFD9
+  1427                           status	equ	0xFD8
+
+Data Sizes:
+    Strings     9
+    Constant    0
+    Data        0
+    BSS         13
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           94     11      24
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+
+Pointer List with Targets:
+
+    CAN_Send_msg@data	PTR unsigned char  size(2) Largest target is 9
+		 -> STR_1(CODE[9]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_CAN_Send_msg
+
+Critical Paths under _ISR1 in COMRAM
+
+    _ISR1->i2_led_blink
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _ISR1 in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _ISR1 in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _ISR1 in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _ISR1 in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _ISR1 in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _ISR1 in BANK5
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 0     0      0     612
+                           _CAN_Init
+                      _CAN_RX_Config
+                           _CAN_Read
+                       _CAN_Send_msg
+                       _CAN_set_baud
+                        _System_Init
+                          _led_blink
+ ---------------------------------------------------------------------------------
+ (1) _led_blink                                            2     2      0       0
+                                              2 COMRAM     2     2      0
+ ---------------------------------------------------------------------------------
+ (1) _System_Init                                          0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _CAN_set_baud                                         2     0      2     120
+                                              2 COMRAM     2     0      2
+ ---------------------------------------------------------------------------------
+ (1) _CAN_Send_msg                                         9     4      5     492
+                                              2 COMRAM     9     4      5
+ ---------------------------------------------------------------------------------
+ (1) _CAN_Read                                             6     6      0       0
+                                              2 COMRAM     6     6      0
+ ---------------------------------------------------------------------------------
+ (1) _CAN_RX_Config                                        0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _CAN_Init                                             0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 1
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (2) _ISR1                                                 0     0      0       0
+                        i2_led_blink
+ ---------------------------------------------------------------------------------
+ (3) i2_led_blink                                          2     2      0       0
+                                              0 COMRAM     2     2      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _CAN_Init
+   _CAN_RX_Config
+   _CAN_Read
+   _CAN_Send_msg
+   _CAN_set_baud
+   _System_Init
+   _led_blink
+
+ _ISR1 (ROOT)
+   i2_led_blink
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             5FF      0       0      27        0.0%
+EEDATA             100      0       0       0        0.0%
+BITBANK5           100      0       0      14        0.0%
+BANK5              100      0       0      15        0.0%
+BITBANK4           100      0       0      12        0.0%
+BANK4              100      0       0      13        0.0%
+BITBANK3           100      0       0      10        0.0%
+BANK3              100      0       0      11        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5E      0       0       0        0.0%
+COMRAM              5E      B      18       1       25.5%
+BITBIGSFRhlhhh      4C      0       0      17        0.0%
+BITBIGSFRllh        26      0       0      24        0.0%
+BITBIGSFRlll        16      0       0      25        0.0%
+BITBIGSFRlhhll      12      0       0      22        0.0%
+BITBIGSFRhllh       11      0       0      19        0.0%
+BITBIGSFRhlhl        F      0       0      18        0.0%
+BITBIGSFRhh          D      0       0      16        0.0%
+BITBIGSFRhlll        D      0       0      20        0.0%
+BITBIGSFRlhhlh       2      0       0      21        0.0%
+BITBIGSFRlhl         2      0       0      23        0.0%
+BIGSFR               0      0       0     200        0.0%
+BITSFR_1             0      0       0     200        0.0%
+SFR_1                0      0       0     200        0.0%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      18      26        0.0%
+DATA                 0      0      18       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V2.36 build 20220127204148 
+Symbol Table                                                                                   Thu Oct 20 16:19:45 2022
+
+                                                           l95 0790  
+                                                          l100 085C  
+                                                          l110 0A00  
+                                                          l121 0964  
+                                                          l130 08EC  
+                                                          l115 0784  
+                                                          l107 09F6  
+                                                          l124 09AC  
+                                                          l118 098A  
+                                         __end_of_CAN_Send_msg 078A  
+                                                          l901 08FC  
+                                                          l911 094E  
+                                                          l903 0902  
+                                                          l921 0962  
+                                                          l913 0952  
+                                                          l905 0942  
+                                                          l915 0956  
+                                                          l907 0946  
+                                                          l851 09F2  
+                                                          l923 0990  
+                                                          l853 09FC  
+                                                          l917 095A  
+                                                          l909 094A  
+                                                          l925 0992  
+                                                          l919 095E  
+                                                          l927 09AA  
+                                                          l891 0972  
+                                                          l971 07C8  
+                                                          l893 0978  
+                                                          l973 07DE  
+                                                          l981 07FC  
+                                                          l965 078C  
+                                                          l895 097E  
+                                                          l887 096A  
+                                                          l983 0816  
+                                                          l975 07F4  
+                                                          l967 07A4  
+                                                          l897 0984  
+                                                          l889 096E  
+                                                          l985 0822  
+                                                          l969 07BC  
+                                                          l899 08F8  
+                                                          l987 0838  
+                                                          l995 0852  
+                                                          _GIE 007F97  
+                                                          l999 0610  
+                                                          u200 084C  
+                                                          u201 0846  
+                                                          u210 0626  
+                                                          u211 0620  
+                                                          u140 07A2  
+                                                          u141 079C  
+                                                          u150 07BA  
+                                                          u230 0894  
+                                                          u151 07B4  
+                                                          u231 088E  
+                                                          u160 07DC  
+                                                          u240 08B6  
+                                                          u225 064E  
+                                                          u161 07D6  
+                                                          u241 08B0  
+                                                          u170 07F2  
+                                                          u250 08CC  
+                                                          u171 07EC  
+                                                          u251 08C6  
+                                                          u180 0814  
+                                                          u181 080E  
+                                                          u190 0836  
+                                                          u191 0830  
+                                                          u267 099C  
+                                                          u277 0664  
+                                                          u287 0776  
+                                                          wreg 000FE8  
+                                                         l1001 0614  
+                                                         l1011 068A  
+                                                         l1003 0628  
+                                                         l1021 072A  
+                                                         l1013 06AA  
+                                                         l1005 065E  
+                                                         l1023 074A  
+                                                         l1015 06CA  
+                                                         l1007 066E  
+                                                         l1031 0862  
+                                                         l1025 076A  
+                                                         l1017 06EA  
+                                                         l1009 0676  
+                                                         l1041 0896  
+                                                         l1033 0868  
+                                                         l1027 0770  
+                                                         l1019 070A  
+                                                         l1051 08CE  
+                                                         l1043 089A  
+                                                         l1035 0870  
+                                                         l1029 0780  
+                                                         l1045 089E  
+                                                         l1037 087C  
+                                                         l1047 08A2  
+                                                         l1039 0880  
+                                                         l1049 08B8  
+                                                         STR_1 0601  
+                                                         _ISR1 0008  
+                                                         _PEIE 007F96  
+                                                         _main 0862  
+                                                         indf2 000FDF  
+                                                         btemp 0019  
+                                                         start 0030  
+                                             __end_of_CAN_Init 0A04  
+                                             __end_of_CAN_Read 0968  
+                                                 ___param_bank 000000  
+                                                        ?_ISR1 000E  
+                                                        ?_main 000E  
+                                                  i2_led_blink 09B0  
+                                                        i2l124 09CE  
+                                                        i2l141 0028  
+                                                        i2l931 09B4  
+                                                        i2l933 09CC  
+                                                        i2l929 09B2  
+                                                        i2l961 0020  
+                                                        i2l963 0024  
+                                                        i2l957 000C  
+                                         __end_of_CAN_set_baud 0862  
+                                                        i2l959 001E  
+                                                        tablat 000FF5  
+                                                        ttemp5 001A  
+                                                        ttemp6 001D  
+                                                        ttemp7 0021  
+                                                        status 000FD8  
+                                                        wtemp8 001A  
+                                                 __end_of_ISR1 0030  
+                                              __initialization 09D2  
+                                                 __end_of_main 08F6  
+                                                       ??_ISR1 0010  
+                                                       ??_main 0019  
+                                                __activetblptr 000001  
+                                                       _CANCON 000F6F  
+                                                       _CIOCON 000F73  
+                                                       _RXB0D0 000F66  
+                                                       _RXB0D1 000F67  
+                                                       _RXB0D2 000F68  
+                                                       _RXB0D3 000F69  
+                                                       _RXB0D4 000F6A  
+                                                       _RXB0D5 000F6B  
+                                                       _RXB0D6 000F6C  
+                                                       _RXB0D7 000F6D  
+                                                       _TXB0D0 000F46  
+                                                       _TXB0D1 000F47  
+                                                       _TXB0D2 000F48  
+                                                       _TXB0D3 000F49  
+                                                       _TXB0D4 000F4A  
+                                                       _TXB0D5 000F4B  
+                                                       _TXB0D6 000F4C  
+                                                       _TXB0D7 000F4D  
+                                              CAN_Send_msg@DLC 0010  
+                                                       clear_0 09D8  
+                                                       isa$std 000001  
+                                                 __mediumconst 0000  
+                                                       tblptrh 000FF7  
+                                                       tblptrl 000FF6  
+                                                       tblptru 000FF8  
+                                                    ?_CAN_Init 000E  
+                                                    ?_CAN_Read 000E  
+                                                   __accesstop 0060  
+                                      __end_of__initialization 09DE  
+                                                 _CAN_Send_msg 060C  
+                                                ___rparam_used 000001  
+                                               __pcstackCOMRAM 000E  
+                                                   ??_CAN_Init 0010  
+                                                   ??_CAN_Read 0010  
+                                                 _CAN_set_baud 078A  
+                                                      _CANSTAT 000F6E  
+                                                 ?i2_led_blink 000E  
+                                                      _BRGCON1 000F70  
+                                                      _BRGCON2 000F71  
+                                                      _BRGCON3 000F72  
+                                                      i2u13_40 001C  
+                                                      i2u13_41 0016  
+                                                      _RXB0DLC 000F65  
+                                                      i2u29_47 09BE  
+                                                      _TXB0DLC 000F45  
+                                                      _TXB0CON 000F40  
+                                             CAN_Send_msg@data 0013  
+                                                ??_System_Init 0010  
+                                             CAN_Send_msg@type 0018  
+                                                      __Hparam 0000  
+                                                      __Lparam 0000  
+                                                    _CAN_RX_ID 000B  
+                                            __end_of_led_blink 09B0  
+                                                 __psmallconst 0600  
+                                                      __pcinit 09D2  
+                                                      __ramtop 0600  
+                                                      __ptext0 0862  
+                                                      __ptext1 098E  
+                                                      __ptext2 09F0  
+                                                      __ptext3 078A  
+                                                      __ptext4 060C  
+                                                      __ptext5 08F6  
+                                                      __ptext6 0968  
+                                                      __ptext7 09FA  
+                                                      __ptext9 09B0  
+                                         end_of_initialization 09DE  
+                                                _CAN_RX_Config 0968  
+                                                      postinc0 000FEE  
+                                          __end_of_System_Init 09FA  
+                                                    _PORTBbits 000F81  
+                                                    _TRISBbits 000F93  
+                                               ?_CAN_RX_Config 000E  
+                                          start_initialization 09D2  
+                                                  _System_Init 09F0  
+                                               CAN_Send_msg@ID 0011  
+                                             CAN_set_baud@baud 0010  
+                                                  _CAN_RX_FLAG 000D  
+                                                  _CAN_RX_Buff 0001  
+                                                  __pbssCOMRAM 0001  
+                                              ??_CAN_RX_Config 0010  
+                                                    __pintcode 0008  
+                                                    _led_blink 098E  
+                                                  __smallconst 0600  
+                                                     _CAN_Init 09FA  
+                                                     _CAN_Read 08F6  
+                                                     _IPR3bits 000FA5  
+                                                     _PIE3bits 000FA3  
+                                                     _PIR3bits 000FA4  
+                                                     _RXB0SIDH 000F61  
+                                                     _RXB0SIDL 000F62  
+                                                     _RXF0SIDH 000F00  
+                                                     _RXF0SIDL 000F01  
+                                                     _TXB0SIDH 000F41  
+                                                     _TXB0SIDL 000F42  
+                                                     _RXM0SIDH 000F18  
+                                                     _RXM0SIDL 000F19  
+                                                   ?_led_blink 000E  
+                                                ?_CAN_Send_msg 0010  
+                                                     __Hrparam 0000  
+                                                     __Lrparam 0000  
+                                                 __Lsmallconst 0600  
+                                                   _CAN_RX_DLC 0009  
+                                               ??_CAN_Send_msg 0015  
+                                                 ?_System_Init 000E  
+                                                ?_CAN_set_baud 0010  
+                                                     isa$xinst 000000  
+                                                     int$flags 0019  
+                                                ??i2_led_blink 000E  
+                                                  ??_led_blink 0010  
+                                                  _RXB0CONbits 000F60  
+                                                     intlevel2 0A04  
+                                               ??_CAN_set_baud 0012  
+                                          __end_ofi2_led_blink 09D2  
+                                        __end_of_CAN_RX_Config 098E  
